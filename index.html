@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f6f3">
+  <title>安心保 · 保险规划助手</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="安心保首页">
+        <span class="brand-mark" aria-hidden="true">
+          <i data-lucide="shield-check"></i>
+        </span>
+        <span>
+          <strong>安心保</strong>
+          <small>保险规划助手</small>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <button class="privacy-note" id="privacyButton" type="button"><i data-lucide="lock-keyhole" aria-hidden="true"></i> 信息仅在本次会话处理</button>
+        <button class="icon-button" id="exportButton" type="button" aria-label="导出咨询摘要" title="导出咨询摘要" disabled>
+          <i data-lucide="download"></i>
+        </button>
+        <button class="icon-button" id="resetButton" type="button" aria-label="重新咨询" title="重新咨询">
+          <i data-lucide="rotate-ccw"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="consultation-panel" aria-label="咨询进度">
+        <div class="advisor-card">
+          <div class="advisor-avatar" aria-hidden="true">
+            <i data-lucide="sparkles"></i>
+          </div>
+          <div>
+            <span class="online-label"><span class="online-dot"></span> 在线</span>
+            <h1>小安</h1>
+            <p>中立保险规划 Agent</p>
+          </div>
+        </div>
+
+        <section class="progress-section" aria-labelledby="progressTitle">
+          <div class="section-heading">
+            <h2 id="progressTitle">咨询进度</h2>
+          <span id="progressCount">0 / 11</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <span id="progressBar"></span>
+          </div>
+          <ol class="step-list" id="stepList">
+            <li data-field="intent"><i data-lucide="circle"></i><span>保障对象</span></li>
+            <li data-field="familyMembers"><i data-lucide="circle"></i><span>家庭结构与成员</span></li>
+            <li data-field="age"><i data-lucide="circle"></i><span>年龄</span></li>
+            <li data-field="gender"><i data-lucide="circle"></i><span>性别</span></li>
+            <li data-field="needs"><i data-lucide="circle"></i><span>保障诉求</span></li>
+            <li data-field="city"><i data-lucide="circle"></i><span>常住城市</span></li>
+            <li data-field="occupation"><i data-lucide="circle"></i><span>职业类别</span></li>
+            <li data-field="family"><i data-lucide="circle"></i><span>家庭情况</span></li>
+            <li data-field="liabilities"><i data-lucide="circle"></i><span>是否有负债</span></li>
+            <li data-field="children"><i data-lucide="circle"></i><span>子女年龄与教育阶段</span></li>
+            <li data-field="parentsSupport"><i data-lucide="circle"></i><span>父母赡养情况</span></li>
+            <li data-field="incomeExpense"><i data-lucide="circle"></i><span>家庭收入与支出</span></li>
+            <li data-field="existing"><i data-lucide="circle"></i><span>已有保障情况</span></li>
+            <li data-field="budget"><i data-lucide="circle"></i><span>收入与预算承受</span></li>
+            <li data-field="goals"><i data-lucide="circle"></i><span>长期目标</span></li>
+            <li data-field="health"><i data-lucide="circle"></i><span>健康状况</span></li>
+          </ol>
+        </section>
+
+        <section class="profile-section" aria-labelledby="profileTitle">
+          <div class="section-heading">
+            <h2 id="profileTitle">需求画像</h2>
+            <span id="profileMode">待选择</span>
+            <button id="editProfileButton" class="text-button" type="button" hidden>修改</button>
+          </div>
+          <div id="profileEmpty" class="profile-empty">
+            <i data-lucide="scan-search" aria-hidden="true"></i>
+            <p id="profileEmptyText">先选择个体或家庭配置，再开始整理保障需求。</p>
+          </div>
+          <dl id="profileDetails" class="profile-details" hidden></dl>
+        </section>
+
+        <div class="trust-note">
+          <i data-lucide="badge-check" aria-hidden="true"></i>
+          <p><strong>不推销、不引导成交</strong><br>候选方案仅用于理解差异，投保前请以保险公司官方条款和核保结论为准。</p>
+        </div>
+      </aside>
+
+      <section class="chat-panel" aria-label="保险咨询对话">
+        <div class="chat-heading">
+          <div>
+            <span class="eyebrow">一对一规划</span>
+            <h2 id="chatTitle">先聊聊你的保障需求</h2>
+          </div>
+          <span class="session-status" id="sessionStatus"><i data-lucide="messages-square"></i> 咨询中</span>
+        </div>
+
+        <div class="messages" id="messages" role="log" aria-live="polite" aria-relevant="additions">
+        </div>
+
+        <div class="composer-area">
+          <div class="quick-replies" id="quickReplies" aria-label="快捷回答"></div>
+          <form class="composer" id="chatForm">
+            <label class="sr-only" for="messageInput">输入你的情况</label>
+            <textarea id="messageInput" rows="1" maxlength="300" placeholder="说说你的情况，或点击上方选项…"></textarea>
+            <button class="send-button" id="sendButton" type="submit" aria-label="发送">
+              <i data-lucide="arrow-up"></i>
+            </button>
+          </form>
+          <p class="composer-hint">请勿填写身份证号、手机号、详细病历等敏感信息</p>
+        </div>
+      </section>
+
+      <aside class="advice-panel" id="advicePanel" aria-label="保险建议" hidden>
+        <div class="advice-header">
+          <div>
+            <span class="eyebrow">为你生成</span>
+            <h2 id="adviceTitle">个人保障建议</h2>
+          </div>
+          <span class="generated-label"><i data-lucide="check"></i> 已完成</span>
+        </div>
+
+        <div class="priority-banner" id="priorityBanner"></div>
+
+        <section class="recommendation-section" aria-labelledby="coverageTitle">
+          <h3 id="coverageTitle">建议配置顺序</h3>
+          <div class="recommendation-list" id="recommendationList"></div>
+        </section>
+
+        <section class="allocation-section" aria-labelledby="allocationTitle">
+          <div class="section-heading">
+            <h3 id="allocationTitle">预算参考</h3>
+            <span id="budgetLabel"></span>
+          </div>
+          <div class="allocation-bar" id="allocationBar" aria-label="建议预算分配"></div>
+          <div class="allocation-legend" id="allocationLegend"></div>
+        </section>
+
+        <section class="product-section" aria-labelledby="productTitle">
+          <div class="product-section-heading">
+            <div>
+              <h3 id="productTitle">候选方案对比</h3>
+              <p>演示数据，仅用于展示比较方法</p>
+            </div>
+            <span id="productUpdatedAt">数据更新：2026-09-03</span>
+          </div>
+          <div class="product-tabs" id="productTabs" role="tablist" aria-label="选择险种"></div>
+          <div class="comparison-summary" id="comparisonSummary"></div>
+          <div class="comparison-scroll">
+            <table class="comparison-table">
+              <caption class="sr-only">候选保险方案差异对比</caption>
+              <thead id="comparisonHead"></thead>
+              <tbody id="comparisonBody"></tbody>
+            </table>
+          </div>
+          <p class="data-disclaimer"><i data-lucide="info"></i> 页面不提供购买入口，不构成对任何产品的推荐。正式选择时请核验最新官方条款、费率及停售状态。</p>
+        </section>
+
+        <section class="checklist-section" aria-labelledby="checklistTitle">
+          <h3 id="checklistTitle">投保前核对</h3>
+          <ul id="checklist"></ul>
+        </section>
+
+        <div class="advice-actions">
+          <button class="primary-button" id="downloadAdviceButton" type="button">
+            <i data-lucide="download"></i> 导出建议
+          </button>
+          <button class="secondary-button" id="backToChatButton" type="button">
+            <i data-lucide="message-circle"></i> 返回对话
+          </button>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="modal-backdrop" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+    <div class="privacy-dialog">
+      <div class="dialog-icon" aria-hidden="true"><i data-lucide="shield-check"></i></div>
+      <span class="eyebrow">开始前请确认</span>
+      <h2 id="privacyTitle">你的信息如何被处理</h2>
+      <p>本演示只在当前浏览器页面内处理你填写的信息，不上传服务器、不持久保存。关闭或刷新页面后数据会清空。</p>
+      <ul>
+        <li><i data-lucide="check"></i><span>仅采集生成保障建议所需的最少信息</span></li>
+        <li><i data-lucide="check"></i><span>请勿填写姓名、证件号、手机号或详细病历</span></li>
+        <li><i data-lucide="check"></i><span>可随时点击“重新咨询”立即删除本次数据</span></li>
+      </ul>
+      <label class="consent-check">
+        <input type="checkbox" id="consentCheckbox">
+        <span>我已了解并同意在本次会话中处理所填写的健康及保障信息</span>
+      </label>
+      <button class="primary-button consent-button" id="startConsultationButton" type="button" disabled>同意并开始咨询</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

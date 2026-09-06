@@ -1,0 +1,4 @@
+node_modules/
+.env
+knowledge-base/*
+!knowledge-base/.gitkeep

@@ -1,0 +1,18 @@
+{
+  "name": "insurance-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "安心保保险规划 Agent：规则式咨询前端 + RAG + OpenAI API 适配层",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "check": "node --check server.js && node --check src/services/llm.js && node --check src/knowledge/store.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "openai": "^4.104.0"
+  }
+}
