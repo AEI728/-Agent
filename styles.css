@@ -808,6 +808,71 @@ button:disabled {
   line-height: 1.55;
 }
 
+.product-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin-bottom: 11px;
+}
+
+.guide-card {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+}
+
+.guide-card-positive { border-top: 2px solid var(--green); }
+.guide-card-warning { border-top: 2px solid var(--coral); }
+
+.guide-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 9px;
+}
+
+.guide-card-heading svg {
+  width: 15px;
+  height: 15px;
+}
+
+.guide-card-positive .guide-card-heading { color: var(--green); }
+.guide-card-warning .guide-card-heading { color: var(--coral); }
+
+.guide-card-heading h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 11px;
+}
+
+.guide-card ul {
+  display: grid;
+  gap: 7px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.guide-card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: var(--ink-soft);
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.guide-card li svg {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.guide-card-positive li svg { color: var(--green); }
+.guide-card-warning li svg { color: var(--coral); }
+
 .comparison-scroll {
   overflow-x: auto;
   border: 1px solid var(--line);
@@ -870,6 +935,144 @@ button:disabled {
   height: 13px;
   flex: 0 0 auto;
   margin-top: 1px;
+}
+
+.worksheet-section,
+.contract-section {
+  padding: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.worksheet-section > .section-heading,
+.contract-section > .section-heading {
+  margin-bottom: 13px;
+}
+
+.worksheet-section .section-heading span,
+.contract-section .section-heading span {
+  color: var(--ink-faint);
+  font-size: 9px;
+}
+
+.worksheet-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+}
+
+.worksheet-table {
+  width: 100%;
+  min-width: 510px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 9px;
+}
+
+.worksheet-table th,
+.worksheet-table td {
+  padding: 7px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.worksheet-table tr:last-child th,
+.worksheet-table tr:last-child td { border-bottom: 0; }
+
+.worksheet-table thead th {
+  color: var(--ink);
+  background: var(--surface-soft);
+  font-size: 10px;
+}
+
+.worksheet-table th:first-child {
+  width: 105px;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.worksheet-input {
+  width: 100%;
+  min-height: 27px;
+  padding: 5px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  color: var(--ink);
+  background: var(--surface);
+  font: inherit;
+  outline: 0;
+}
+
+.worksheet-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px rgba(23, 107, 77, 0.1);
+}
+
+.worksheet-button {
+  min-height: 34px;
+  margin-top: 11px;
+  padding: 0 12px;
+  font-size: 10px;
+}
+
+.worksheet-result {
+  margin-top: 10px;
+  padding: 10px 11px;
+  color: var(--green-dark);
+  background: var(--green-soft);
+  border-left: 3px solid var(--green);
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.worksheet-result ul {
+  display: grid;
+  gap: 4px;
+  padding-left: 17px;
+  margin: 6px 0;
+}
+
+.worksheet-result p { margin: 5px 0 0; color: var(--ink-soft); }
+
+.contract-steps {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.contract-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.contract-step-number {
+  width: 21px;
+  height: 21px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  color: var(--green);
+  background: var(--green-soft);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.contract-steps strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ink);
+  font-size: 11px;
+}
+
+.contract-steps p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 10px;
+  line-height: 1.55;
 }
 
 .recommendation-list {
@@ -1270,8 +1473,14 @@ button:disabled {
   .recommendation-section,
   .allocation-section,
   .checklist-section,
-  .product-section {
+  .product-section,
+  .worksheet-section,
+  .contract-section {
     padding: 20px 16px;
+  }
+
+  .product-guide-grid {
+    grid-template-columns: 1fr;
   }
 
   .recommendation-item {

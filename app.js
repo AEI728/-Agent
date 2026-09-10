@@ -78,7 +78,9 @@ const productComparisons = {
     rows: [
       ["保额", "200 万 / 年", "300 万 / 年", "100 万 / 年"],
       ["参考保费", "约 300–800 元/年", "约 500–1,200 元/年", "约 100–300 元/年"],
+      ["续保条件", "保证续保 20 年", "保证续保年限需核验", "通常一年期，逐年审核"],
       ["等待期", "30 天", "30 天", "0–30 天"],
+      ["免赔额 / 外购药", "1 万 / 特药 100%", "1 万 / 按目录与比例", "1 万或更高 / 责任较少"],
       ["健康告知", "中等，既往症需核实", "较细，含体检异常询问", "相对宽松，以当地规则为准"],
       ["免责重点", "非约定医院、既往症", "特定既往症、院外药目录", "报销比例和医院范围较有限"]
     ]
@@ -90,7 +92,10 @@ const productComparisons = {
     rows: [
       ["保额", "30–50 万", "30–50 万", "20–30 万"],
       ["参考保费", "约 2,000–6,000 元/年", "约 4,000–10,000 元/年", "约 1,000–3,000 元/年"],
+      ["交费与现金价值", "20/30 年交，现金价值可查", "20/30 年交，前期退保损失较大", "短期定期，现金价值较低"],
       ["等待期", "90 天", "180 天", "90 天"],
+      ["轻症 / 中症", "轻症通常 30% 起，中症责任完整", "多次赔付，分组与间隔期需核验", "轻症比例和病种相对精简"],
+      ["重疾与身故", "通常分别给付，条款明确", "部分产品共用保额，必须核对", "多为重疾或身故二选一"],
       ["健康告知", "标准健康告知", "标准健康告知 + 部分体检项", "通常较简化，仍需如实告知"],
       ["免责重点", "既往症、未达定义标准", "分组与间隔期限制", "保障期限届满后不再承担责任"]
     ]
@@ -102,7 +107,9 @@ const productComparisons = {
     rows: [
       ["保额", "50–150 万", "50–200 万", "50–150 万"],
       ["参考保费", "约 500–2,000 元/年", "约 800–3,000 元/年", "约 700–2,500 元/年"],
+      ["交费与现金价值", "10/20/30 年交，定期险现金价值有限", "长期储蓄型，现金价值需演算", "10/20 年交，退保损失需核验"],
       ["等待期", "90–180 天", "90–180 天", "90–180 天"],
+      ["责任期限", "覆盖主要家庭责任期", "期限与保额成本更高", "覆盖期限需匹配负债与教育责任"],
       ["健康告知", "标准告知，体检异常需核实", "标准告知，部分职业限制", "标准告知，地区规则有差异"],
       ["免责重点", "酒驾、违法犯罪等", "高危职业、战争等", "免责与等待期以条款为准"]
     ]
@@ -114,12 +121,76 @@ const productComparisons = {
     rows: [
       ["保额", "50–100 万", "50–100 万", "20–50 万"],
       ["参考保费", "约 100–500 元/年", "约 300–1,500 元/年", "约 300–1,000 元/年"],
+      ["意外医疗", "0 免赔 / 不限社保优先", "按职业与医院范围核验", "含骨折、住院津贴等责任"],
       ["等待期", "通常无", "通常无", "通常无或 7 天"],
+      ["伤残赔付", "按标准分级赔付", "高危职业限制需核验", "年龄与伤残定义需核验"],
       ["健康告知", "通常较简化", "重点核验职业类别", "可能询问既往住院情况"],
       ["免责重点", "高危运动、酒驾等", "未如实告知职业", "既往症相关医疗费用"]
     ]
   }
 };
+
+// These are evaluation criteria, not product recommendations. Keep them concrete enough
+// for a user to verify against the latest official policy wording.
+const productGuides = {
+  medical: {
+    portrait: [
+      "保证续保 20 年或明确的长期续保安排，且不因单次理赔单独拒绝续保。",
+      "院外特药 / 肿瘤特药责任清楚，报销比例、药品目录和用药流程写进条款或服务协议。",
+      "一般住院免赔额约 1 万元；家庭共享、无理赔递减等机制要看触发条件。",
+      "医院范围明确，并包含住院垫付、就医绿通等实用服务且不以隐性消费为前提。"
+    ],
+    pitfalls: [
+      "只写“可续保”但没有保证续保年限，或续保需要重新审核健康状况。",
+      "把外购药写成宣传语，实际有目录、次数、指定医院或比例限制。",
+      "免赔额、报销比例和既往症责任藏在释义或特别约定中，不能只看保额。"
+    ]
+  },
+  critical: {
+    portrait: [
+      "覆盖高发轻症、中症和重疾，轻症赔付比例通常不低于 30%，次数与间隔期透明。",
+      "等待期优先选择 90 天左右；疾病定义、赔付条件和除外责任可在条款中逐项找到。",
+      "重疾与身故责任最好分别给出保额，现金价值、减额交清和退保损失可查可算。",
+      "有少儿、女性或特定疾病额外赔付时，明确疾病范围、年龄和赔付触发条件。"
+    ],
+    pitfalls: [
+      "返还型 / 两全型包装成“不花钱”，却明显抬高保费、挤压实际保额。",
+      "轻症缺少高发病种，或赔付比例低于 20%，中症责任被弱化。",
+      "重疾和身故共用一份保额，却按两份保障的价格销售。"
+    ]
+  },
+  life: {
+    portrait: [
+      "定期保障期限覆盖主要负债、子女教育和赡养责任，保额能对应家庭责任缺口。",
+      "健康告知、职业类别、等待期与免责边界清晰，线上线下核保口径一致。",
+      "身故 / 全残定义、受益人安排和理赔材料要求明确，续保和费率变化规则可查。"
+    ],
+    pitfalls: [
+      "用高保费储蓄型寿险替代定期寿险，导致家庭责任期内保额不足。",
+      "忽略全残定义、职业限制和免责条款，只比较身故保额。",
+      "期限没有覆盖房贷或子女独立阶段，责任缺口在中途暴露。"
+    ]
+  },
+  accident: {
+    portrait: [
+      "意外医疗免赔额低，报销范围不限社保或明确自费药比例与医院范围。",
+      "伤残按行业标准分级赔付，职业类别与实际工作匹配，续保年龄限制透明。",
+      "包含意外身故、伤残和医疗三项核心责任，等待期通常较短或无等待期。"
+    ],
+    pitfalls: [
+      "只宣传意外身故保额，意外医疗免赔额高、报销比例低或限制社保目录。",
+      "职业类别不匹配，高危作业理赔时可能按比例赔付或拒赔。",
+      "把猝死、交通意外等特定责任当作全部意外保障，忽略定义和免责。"
+    ]
+  }
+};
+
+const contractGuide = [
+  { title: "保险责任", detail: "先确认保什么、赔多少、赔几次，以及触发赔付需要满足哪些条件。" },
+  { title: "责任免除", detail: "再看什么情况下不赔，特别留意既往症、酒驾、高危运动、医院范围等限制。" },
+  { title: "释义与特别约定", detail: "核对“医院”“意外”“重大疾病”等定义，宣传页没有写清的以这里为准。" },
+  { title: "健康告知与核保结论", detail: "逐项如实回答；有不确定的就先向保险公司确认，保留书面核保记录。" }
+];
 
 const profile = Object.fromEntries(ALL_FIELDS.map((field) => [field, null]));
 let currentField = "intent";
@@ -157,6 +228,11 @@ const elements = {
   comparisonSummary: document.getElementById("comparisonSummary"),
   comparisonHead: document.getElementById("comparisonHead"),
   comparisonBody: document.getElementById("comparisonBody"),
+  productPortrait: document.getElementById("productPortrait"),
+  productPitfalls: document.getElementById("productPitfalls"),
+  contractGuide: document.getElementById("contractGuide"),
+  evaluateWorksheetButton: document.getElementById("evaluateWorksheetButton"),
+  worksheetResult: document.getElementById("worksheetResult"),
   downloadAdviceButton: document.getElementById("downloadAdviceButton"),
   backToChatButton: document.getElementById("backToChatButton"),
   toast: document.getElementById("toast"),
@@ -722,12 +798,15 @@ function renderAdvice() {
     <div class="legend-item"><span class="legend-dot"></span><span>${item.name}</span><strong>${item.share}%</strong></div>`).join("");
   elements.checklist.innerHTML = recommendations.checklist.map((item) => `
     <li><i data-lucide="check-circle-2"></i><span>${item}</span></li>`).join("");
+  elements.contractGuide.innerHTML = contractGuide.map((item, index) => `
+    <li><span class="contract-step-number">${index + 1}</span><div><strong>${item.title}</strong><p>${item.detail}</p></div></li>`).join("");
   initIcons();
   renderProductComparison("medical");
 }
 
 function renderProductComparison(type) {
   const comparison = productComparisons[type] || productComparisons.medical;
+  const guide = productGuides[type] || productGuides.medical;
   elements.productTabs.innerHTML = Object.entries(productComparisons).map(([key, item]) => `
     <button class="product-tab" type="button" role="tab" aria-selected="${key === type}" data-product-type="${key}">${item.label}</button>`).join("");
   elements.productTabs.querySelectorAll(".product-tab").forEach((button) => {
@@ -738,7 +817,37 @@ function renderProductComparison(type) {
   elements.comparisonHead.innerHTML = `<tr><th scope="col">比较维度</th>${comparison.columns.map((column) => `<th scope="col">${column}</th>`).join("")}</tr>`;
   elements.comparisonBody.innerHTML = comparison.rows.map((row) => `
     <tr><th scope="row">${row[0]}</th>${row.slice(1).map((cell, index) => `<td class="${index === 2 ? "attention" : ""}">${cell}</td>`).join("")}</tr>`).join("");
+  elements.productPortrait.innerHTML = guide.portrait.map((item) => `<li><i data-lucide="check"></i><span>${item}</span></li>`).join("");
+  elements.productPitfalls.innerHTML = guide.pitfalls.map((item) => `<li><i data-lucide="alert-circle"></i><span>${item}</span></li>`).join("");
   initIcons();
+}
+
+function evaluateWorksheet() {
+  const candidates = [0, 1, 2].map((index) => {
+    const value = (metric) => document.querySelector(`[data-metric="${metric}"][data-index="${index}"]`)?.value.trim() || "";
+    const coverage = Number(value("coverage"));
+    const premium = Number(value("premium"));
+    const waiting = Number(value("waiting"));
+    return { name: `产品 ${String.fromCharCode(65 + index)}`, coverage, premium, waiting, notes: value("notes") };
+  }).filter((candidate) => candidate.coverage || candidate.premium || candidate.waiting || candidate.notes);
+
+  if (!candidates.length) {
+    showToast("先填写至少一款候选产品");
+    return;
+  }
+
+  const validRatios = candidates.filter((candidate) => candidate.coverage > 0 && candidate.premium > 0);
+  const lowestRatio = validRatios.length ? Math.min(...validRatios.map((candidate) => candidate.premium / candidate.coverage)) : null;
+  const lines = candidates.map((candidate) => {
+    const ratio = candidate.coverage > 0 && candidate.premium > 0 ? candidate.premium / candidate.coverage : null;
+    const hints = [];
+    if (ratio !== null && ratio === lowestRatio) hints.push("单位保额保费较低");
+    if (candidate.waiting && candidate.waiting <= 90) hints.push("等待期较短");
+    if (!candidate.notes) hints.push("补充核验关键责任与限制");
+    return `<li><strong>${candidate.name}</strong>${ratio !== null ? `：每 1 万保额约 ${Math.round(ratio * 10) / 10} 元/年` : "：保额与保费未填完整"}${hints.length ? `（${hints.join("；")}）` : ""}</li>`;
+  }).join("");
+  elements.worksheetResult.innerHTML = `<strong>对比提示</strong><ul>${lines}</ul><p>单位保额保费只是粗筛，不代表保障更好。请继续对照上方产品画像、免责条款、健康告知和现金价值。</p>`;
+  elements.worksheetResult.hidden = false;
 }
 
 function exportAdvice() {
@@ -766,7 +875,16 @@ function exportAdvice() {
     `${index + 1}. ${item.name}（${item.priority}）\n   建议额度：${item.amount}\n   关注：${item.detail}`
   ).join("\n\n");
   const checkText = recommendations.checklist.map((item, index) => `${index + 1}. ${item}`).join("\n");
-  const content = `安心保 · 保险规划建议\n生成日期：${new Intl.DateTimeFormat("zh-CN", { dateStyle: "long" }).format(new Date())}\n\n【需求画像】\n${profileText}\n\n【核心提示】\n${recommendations.priority}\n\n【建议配置顺序】\n${itemText}\n\n【候选方案对比】\n${Object.values(productComparisons).map((comparison) => `${comparison.label}：${comparison.summary}`).join("\n")}\n\n【投保前核对】\n${checkText}\n\n免责声明：本建议基于通用保障逻辑，仅供需求梳理参考，不构成具体保险产品推荐、承保承诺或理赔承诺。候选对比为演示数据，正式选择时请以保险公司最新官方条款、费率及核保结论为准。`;
+  const guideText = Object.entries(productGuides).map(([key, guide]) => {
+    const label = productComparisons[key].label;
+    return `${label}\n优质产品画像：\n${guide.portrait.map((item) => `- ${item}`).join("\n")}\n避坑：\n${guide.pitfalls.map((item) => `- ${item}`).join("\n")}`;
+  }).join("\n\n");
+  const contractText = contractGuide.map((item, index) => `${index + 1}. ${item.title}：${item.detail}`).join("\n");
+  const worksheetText = [0, 1, 2].map((index) => {
+    const get = (metric) => document.querySelector(`[data-metric="${metric}"][data-index="${index}"]`)?.value.trim() || "未填";
+    return `产品 ${String.fromCharCode(65 + index)}：保额 ${get("coverage")} 万；年保费 ${get("premium")} 元；等待期 ${get("waiting")} 天；关键责任 / 限制：${get("notes")}`;
+  }).join("\n");
+  const content = `安心保 · 保险规划建议\n生成日期：${new Intl.DateTimeFormat("zh-CN", { dateStyle: "long" }).format(new Date())}\n\n【需求画像】\n${profileText}\n\n【核心提示】\n${recommendations.priority}\n\n【建议配置顺序】\n${itemText}\n\n【产品选择尺子】\n${guideText}\n\n【条款阅读指南】\n${contractText}\n\n【候选产品验算记录】\n${worksheetText}\n\n【投保前核对】\n${checkText}\n\n免责声明：本建议基于通用保障逻辑，仅供需求梳理参考，不构成具体保险产品推荐、承保承诺或理赔承诺。所有判断需以保险公司最新官方条款、费率及核保结论为准。`;
 
   const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
   const url = URL.createObjectURL(blob);
@@ -790,6 +908,9 @@ function resetConsultation() {
   elements.messageInput.disabled = false;
   document.getElementById("sendButton").disabled = false;
   elements.messageInput.placeholder = "说说你的情况，或点击上方选项…";
+  document.querySelectorAll(".worksheet-input").forEach((input) => { input.value = ""; });
+  elements.worksheetResult.hidden = true;
+  elements.worksheetResult.innerHTML = "";
   elements.chatTitle.textContent = "先聊聊你的保障需求";
   elements.sessionStatus.innerHTML = '<i data-lucide="messages-square"></i> 咨询中';
   updateProgress();
@@ -850,6 +971,7 @@ elements.messageInput.addEventListener("keydown", (event) => {
 elements.resetButton.addEventListener("click", resetConsultation);
 elements.exportButton.addEventListener("click", exportAdvice);
 elements.downloadAdviceButton.addEventListener("click", exportAdvice);
+elements.evaluateWorksheetButton.addEventListener("click", evaluateWorksheet);
 elements.editProfileButton.addEventListener("click", editProfile);
 elements.backToChatButton.addEventListener("click", () => {
   elements.advicePanel.hidden = true;

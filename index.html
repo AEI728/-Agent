@@ -147,12 +147,22 @@
         <section class="product-section" aria-labelledby="productTitle">
           <div class="product-section-heading">
             <div>
-              <h3 id="productTitle">候选方案对比</h3>
-              <p>演示数据，仅用于展示比较方法</p>
+              <h3 id="productTitle">产品选择尺子</h3>
+              <p>只看保障特征，不指向任何具体产品</p>
             </div>
-            <span id="productUpdatedAt">数据更新：2026-09-03</span>
+            <span id="productUpdatedAt">按条款逐项核验</span>
           </div>
           <div class="product-tabs" id="productTabs" role="tablist" aria-label="选择险种"></div>
+          <div class="product-guide-grid">
+            <section class="guide-card guide-card-positive" aria-labelledby="portraitTitle">
+              <div class="guide-card-heading"><i data-lucide="badge-check"></i><h4 id="portraitTitle">优质产品画像</h4></div>
+              <ul id="productPortrait"></ul>
+            </section>
+            <section class="guide-card guide-card-warning" aria-labelledby="pitfallTitle">
+              <div class="guide-card-heading"><i data-lucide="triangle-alert"></i><h4 id="pitfallTitle">必坑指南</h4></div>
+              <ul id="productPitfalls"></ul>
+            </section>
+          </div>
           <div class="comparison-summary" id="comparisonSummary"></div>
           <div class="comparison-scroll">
             <table class="comparison-table">
@@ -162,6 +172,34 @@
             </table>
           </div>
           <p class="data-disclaimer"><i data-lucide="info"></i> 页面不提供购买入口，不构成对任何产品的推荐。正式选择时请核验最新官方条款、费率及停售状态。</p>
+        </section>
+
+        <section class="worksheet-section" aria-labelledby="worksheetTitle">
+          <div class="section-heading">
+            <h3 id="worksheetTitle">候选产品验算表</h3>
+            <span>把手里的产品填进来</span>
+          </div>
+          <div class="worksheet-scroll">
+            <table class="worksheet-table">
+              <thead><tr><th>核验数据</th><th>产品 A</th><th>产品 B</th><th>产品 C</th></tr></thead>
+              <tbody>
+                <tr><th>保额（万元）</th><td><input class="worksheet-input" data-metric="coverage" data-index="0" inputmode="decimal" placeholder="如 50"></td><td><input class="worksheet-input" data-metric="coverage" data-index="1" inputmode="decimal" placeholder="如 50"></td><td><input class="worksheet-input" data-metric="coverage" data-index="2" inputmode="decimal" placeholder="如 50"></td></tr>
+                <tr><th>年保费（元）</th><td><input class="worksheet-input" data-metric="premium" data-index="0" inputmode="decimal" placeholder="如 3000"></td><td><input class="worksheet-input" data-metric="premium" data-index="1" inputmode="decimal" placeholder="如 3500"></td><td><input class="worksheet-input" data-metric="premium" data-index="2" inputmode="decimal" placeholder="如 2800"></td></tr>
+                <tr><th>等待期（天）</th><td><input class="worksheet-input" data-metric="waiting" data-index="0" inputmode="numeric" placeholder="如 90"></td><td><input class="worksheet-input" data-metric="waiting" data-index="1" inputmode="numeric" placeholder="如 180"></td><td><input class="worksheet-input" data-metric="waiting" data-index="2" inputmode="numeric" placeholder="如 90"></td></tr>
+                <tr><th>关键责任 / 限制</th><td><input class="worksheet-input" data-metric="notes" data-index="0" placeholder="如 外购药100%"></td><td><input class="worksheet-input" data-metric="notes" data-index="1" placeholder="如 外购药80%"></td><td><input class="worksheet-input" data-metric="notes" data-index="2" placeholder="如 无外购药"></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <button class="secondary-button worksheet-button" id="evaluateWorksheetButton" type="button"><i data-lucide="calculator"></i> 生成对比提示</button>
+          <div class="worksheet-result" id="worksheetResult" role="status" hidden></div>
+        </section>
+
+        <section class="contract-section" aria-labelledby="contractTitle">
+          <div class="section-heading">
+            <h3 id="contractTitle">条款阅读指南</h3>
+            <span>最终以合同为准</span>
+          </div>
+          <ol class="contract-steps" id="contractGuide"></ol>
         </section>
 
         <section class="checklist-section" aria-labelledby="checklistTitle">

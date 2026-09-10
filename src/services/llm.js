@@ -18,7 +18,7 @@ class LLMService {
       const citation = contexts.length ? `\n参考资料：[${contexts[0].title}]` : "";
       return {
         mode: "mock",
-        text: `已收到这份保障画像。建议先按家庭责任、已有保障和健康告知逐项核对，再比较医疗、重疾、意外和寿险的责任范围。${citation}`
+        text: `已收到这份保障画像。建议先按家庭责任、已有保障和健康告知确定需要比较的险种，再用“续保/责任/免责/等待期/健康告知/现金价值”这些维度核对官方条款。这里提供的是筛选标准和避坑提醒，不指向任何具体产品。${citation}`
       };
     }
 
