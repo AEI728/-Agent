@@ -15,7 +15,7 @@ module.exports = {
   },
   rag: {
     topK: Number(process.env.RAG_TOP_K || 4),
-    // 知识库文件暂不放入项目；此路径是后续文档存储和管理的约定位置。
+    // MVP 使用本地结构化 JSON；后续可在 KnowledgeStore 边界替换为向量数据库。
     knowledgeBasePath
   }
 };

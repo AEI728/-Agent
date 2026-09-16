@@ -1,0 +1,14 @@
+{
+  "documents": [
+    {"id":"compliance_001","type":"合规","title":"通用免责声明","content":"以上内容由 AI 助手生成，仅供保险知识教育和需求梳理参考，不构成投保、核保、理赔、法律或财务建议，具体以最新法律政策、保险合同条款和保险公司正式结论为准。","severity":"required","source":"产品合规策略","reviewedBy":"待法务审核","updatedAt":"2026-09-07"},
+    {"id":"compliance_002","type":"合规","title":"禁止保证收益","content":"禁止使用‘保证收益’‘稳赚不赔’等表述。涉及分红、万能账户或演示利益时，必须区分保证利益与非保证利益。","severity":"block","source":"产品合规策略","reviewedBy":"待法务审核","updatedAt":"2026-09-07"},
+    {"id":"compliance_003","type":"合规","title":"禁止绝对价格结论","content":"禁止使用‘最便宜’‘性价比最高’等无法完整验证的绝对化结论，应说明比较口径、样本范围和时间。","severity":"block","source":"产品合规策略","reviewedBy":"待法务审核","updatedAt":"2026-09-07"},
+    {"id":"compliance_004","type":"合规","title":"禁止承诺赔付","content":"禁止使用‘一定赔’‘百分百赔’等承诺。应说明赔付取决于保险责任、事实证据、免责和保险公司审核。","severity":"block","source":"产品合规策略","reviewedBy":"待法务审核","updatedAt":"2026-09-07"},
+    {"id":"compliance_005","type":"合规","title":"如实告知提醒","content":"涉及健康、职业和既往病史时，必须提醒用户按保险公司的明确询问如实告知并保留问卷、核保和沟通记录。","severity":"required","source":"产品合规策略","reviewedBy":"待法务审核","updatedAt":"2026-09-07"},
+    {"id":"compliance_006","type":"合规","title":"等待期提示","content":"讨论医疗或重疾保障时应提示等待期及其事故处理规则，不能将保单生效日等同于所有疾病责任立即开始。","severity":"required","source":"产品合规策略","reviewedBy":"待法务审核","updatedAt":"2026-09-07"},
+    {"id":"compliance_007","type":"合规","title":"犹豫期提示","content":"涉及长期险投保或退保时应提示犹豫期、合同签收时间及犹豫期后按现金价值退保的潜在损失。","severity":"required","source":"产品合规策略","reviewedBy":"待法务审核","updatedAt":"2026-09-07"},
+    {"id":"compliance_008","type":"合规","title":"不推荐具体产品","content":"MVP 阶段不点名推荐具体保险产品、保险公司或销售渠道，只提供险种、责任、条款和比较方法。","severity":"block","source":"产品合规策略","reviewedBy":"待法务审核","updatedAt":"2026-09-07"},
+    {"id":"compliance_009","type":"合规","title":"地区政策限定","content":"回答社保、医保、税务和监管问题时必须标明地区与有效时间；缺少最新官方来源时提示以当地主管部门为准。","severity":"required","source":"产品合规策略","reviewedBy":"待法务审核","updatedAt":"2026-09-07"},
+    {"id":"compliance_010","type":"合规","title":"转人工规则","content":"涉及个案核保、理赔争议、合同法律解释、大额资产传承或明确购买决策时，应建议咨询保险公司、持证顾问或相应法律财务专业人士。","severity":"required","source":"产品合规策略","reviewedBy":"待法务审核","updatedAt":"2026-09-07"}
+  ]
+}

@@ -31,14 +31,19 @@ class KnowledgeStore {
   importDocuments(documents = []) {
     const imported = [];
     for (const document of documents) {
-      if (!document?.content || !document?.title) continue;
+      const title = document?.title || document?.term || document?.question;
+      const content = [document?.definition, document?.explanation, document?.question, document?.answer, document?.content]
+        .filter(Boolean)
+        .join("\n");
+      if (!content || !title) continue;
       const id = String(document.id || `external-${Date.now()}-${this.documents.size + 1}`);
       const normalized = {
+        ...document,
         id,
-        title: String(document.title),
-        content: String(document.content),
+        title: String(title),
+        content: String(content),
         source: String(document.source || "external-import"),
-        updatedAt: new Date().toISOString()
+        updatedAt: document.updatedAt || document.updated_at || new Date().toISOString()
       };
       this.documents.set(id, normalized);
       imported.push({ id, title: normalized.title, source: normalized.source });
@@ -53,7 +58,11 @@ class KnowledgeStore {
       const entries = await fs.readdir(this.rootPath, { withFileTypes: true });
       const supported = new Set([".md", ".txt", ".json"]);
       for (const entry of entries) {
-        if (!entry.isFile() || !supported.has(path.extname(entry.name).toLowerCase())) continue;
+        if (
+          !entry.isFile() ||
+          entry.name.toLowerCase() === "readme.md" ||
+          !supported.has(path.extname(entry.name).toLowerCase())
+        ) continue;
         const filePath = path.join(this.rootPath, entry.name);
         const content = await fs.readFile(filePath, "utf8");
         if (path.extname(entry.name).toLowerCase() === ".json") {
@@ -77,7 +86,15 @@ class KnowledgeStore {
     const queryTokens = new Set(tokenize(query));
     return [...this.documents.values()]
       .map((document) => {
-        const tokens = new Set(tokenize(`${document.title} ${document.content}`));
+        const searchableText = [
+          document.title,
+          document.content,
+          document.type,
+          document.category,
+          document.term,
+          ...(Array.isArray(document.related) ? document.related : [])
+        ].filter(Boolean).join(" ");
+        const tokens = new Set(tokenize(searchableText));
         const overlap = [...tokens].filter((token) => queryTokens.has(token)).length;
         return { ...document, score: overlap / Math.max(queryTokens.size, 1) };
       })
@@ -88,7 +105,15 @@ class KnowledgeStore {
 
   async list() {
     await this.loadFromConfiguredPath();
-    return [...this.documents.values()].map(({ id, title, source, updatedAt }) => ({ id, title, source, updatedAt }));
+    return [...this.documents.values()].map(({ id, type, category, title, source, reviewedBy, updatedAt }) => ({
+      id,
+      type,
+      category,
+      title,
+      source,
+      reviewedBy,
+      updatedAt
+    }));
   }
 }
 

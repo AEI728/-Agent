@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "node --watch server.js",
     "start": "node server.js",
-    "check": "node --check server.js && node --check src/services/llm.js && node --check src/knowledge/store.js"
+    "check": "node --check server.js && node --check src/services/llm.js && node --check src/knowledge/store.js && node scripts/validate-knowledge.js",
+    "check:knowledge": "node scripts/validate-knowledge.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -53,7 +53,7 @@ app.post("/api/chat", async (request, response) => {
   }
 });
 
-// 知识库管理接口：当前导入到内存，不向项目目录写入知识文件。
+// 临时导入接口只写内存；持久知识由 knowledge-base 目录中的 JSON 管理。
 app.post("/api/knowledge/import", (request, response) => {
   const imported = knowledgeStore.importDocuments(request.body?.documents || []);
   response.status(201).json({ imported, count: imported.length, storage: "memory-placeholder" });
